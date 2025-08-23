@@ -1,13 +1,784 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:1,300,400,400italic,500,700,700italic,900");
+
+:root {
+  --main-color: f#422330;
+  --primary-color: #521b1b;
+  --hover: #42725c;
+  --black: #2a201c;
+  --white: #ffffff;
+  --light-bg: #f3efec;
+  --dark-bg: rgba(0, 0, 0, 0.7);
+  --border: 0.1rem solid #927f7f;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  font-family: "Playfair Display", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+html::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+}
+
+section {
+  padding: 5rem 7%;
+}
+
+.heading {
+  text-align: center;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  font-size: 4rem;
+  margin-top: 4rem;
+}
+
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  background: var(--primary-color);
+  color: var(--white);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem 3rem;
+}
+
+.btn:hover {
+  background: var(--hover);
+}
+
+/* header */
+
+.header {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--main-color);
+  z-index: 1000;
+}
+
+.header .logo {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  color: var(--black);
+  text-transform: capitalize;
+}
+
+.header .navbar #close-navbar {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 4rem;
+  cursor: pointer;
+  color: var(--black);
+  display: none;
+}
+
+.header .navbar a {
+  font-size: 2rem;
+  margin-left: 2rem;
+  color: var(--black);
+  text-transform: capitalize;
+}
+
+.header .navbar a:hover {
+  padding-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+#menu-btn {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--black);
+  display: none;
+}
+
+/* header */
+
+/* home */
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: url(../images/home-bg2.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.home .content {
+  max-width: 60rem;
+}
+
+.home .content span {
+  font-size: 4rem;
+  letter-spacing: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+.home .content h3 {
+  color: var(--red);
+  font-size: 8rem;
+  line-height: 8rem;
+  font-weight: 900;
+}
+/* home */
+
+/* styles */
+
+.styles {
+  background: var(--light-bg);
+}
+
+.styles .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1.5rem;
+}
+
+.styles .box-container .box .image {
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+
+.styles .box-container .box .image img {
+  object-fit: cover;
+}
+
+.styles .box-container .box .content {
+  text-align: center;
+}
+
+.styles .box-container .box .content .title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-transform: capitalize;
+}
+
+.styles .box-container .box .content p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #444;
+  padding: 1rem 0;
+}
+
+/* styles */
+
+/* authentication */
+
+.visit {
+  background: url("../images/visit.jfif");
+  background-size: cover;
+  background-position: center;
+}
+
+.visit .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.visit .row .image {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 40rem;
+  flex: 1 1 40rem;
+}
+
+.visit .row .image img {
+  width: 100%;
+}
+
+.visit .row form {
+  flex: 1 1 40rem;
+  border: 0.1rem solid var(--main-color);
+  padding: 2rem;
+}
+
+.visit .row form h3 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--main-color);
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.visit .row form .inputBox {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  background: var(--main-color);
+  border: var(--border);
+}
+
+.visit .row form .inputBox input {
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.7rem;
+  color: rgb(255, 255, 255);
+  text-transform: none;
+  background: rgb(64, 73, 95);
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.formToggler {
+  color: rgb(191, 196, 191);
+  margin-top: 40px;
+  font-size: 22px;
+  cursor: pointer;
+  text-align: right;
+}
+
+/* authentication */
+
+/* review  */
+
+.review .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+}
+
+.review .box-container .box {
+  border: var(--border);
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.review p {
+  font-size: 1.5rem;
+  color: var(--black);
+}
+
+.review .review__box {
+  border: 1px solid black;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.review .revew__text {
+  padding-bottom: 0.75rem;
+}
+
+.review .review__author {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  text-align: right;
+}
+
+.review .box-container .box h3 {
+  padding: 1rem 0;
+  font-size: 2rem;
+  color: var(--black);
+  text-transform: capitalize;
+}
+
+.review .box-container .box .stars i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.review.review__input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 0 2rem
+}
+
+.review .review__button {
+  background: var(--main-color);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.review .review__textbox {
+  min-height: 7rem;
+}
+
+/* review end */
+
+/* services start */
+
+.services {
+  background-color: var(--main-color);
+}
+
+.services .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 2rem;
+}
+
+.services .box-container .box {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.services .box-container .box img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.services .box-container .box:hover img {
+  transform: scale(1.1);
+}
+
+.box-container .box .content {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  background: var(--dark-bg);
+}
+
+.services .box-container .box .content h3 {
+  text-align: center;
+
+  font-size: 3rem;
+  color: var(--white);
+  padding-top: 30rem;
+  text-transform: capitalize;
+}
+
+.services .box-container .box:hover .content {
+  display: flex;
+}
+
+.services-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.service-item {
+  background-color: var(--light-bg);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.first-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.second-row {
+  margin-top: 5px;
+  border-top: 1px #2a201c solid;
+}
+
+.second-row p {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.selected-service-item {
+  background-color: var(--hover);
+  color: white;
+}
+
+.heading-3 {
+  margin-top: 50px;
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+.date-picker {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-datepicker__input-container input {
+  width: 320px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 2rem;
+  padding: 20px;
+}
+
+.react-datepicker {
+  font-size: 1.2rem !important;
+}
+
+.coupon-field {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.coupon-field input {
+  width: calc(100% - 48px);
+  font-size: 2rem;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.slots {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.slots button {
+  text-align: center;
+  font-size: 2rem;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 1.6rem;
+  width: 7rem;
+}
+
+.selected-slot {
+  background-color: var(--hover);
+  color: white;
+}
+
+.btn-book {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* services end */
+
+/* reservations start */
+
+.reservations {
+  background: url("../images/pricing.jpg");
+  background-attachment: fixed;
+  min-height: 70vh;
+}
+
+.reservations .box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.reservations .box-container .box {
+  min-height: 400px;
+  width: 300px;
+  margin: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background: var(--primary-color);
+}
+
+.reservations .box-container .box::before,
+.reservations .box-container .box:after {
+  content: "";
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.reservations .box-container .box::before {
+  background: var(--light-bg);
+  top: -10%;
+  left: 80%;
+}
+
+.reservations .box-container .box::after {
+  background: var(--main-color);
+  bottom: -10%;
+  right: 80%;
+}
+
+.reservations .box-container .box .title {
+  margin: 30px 0;
+  font-size: 26px;
+  color: var(--main-color);
+  text-transform: capitalize;
+}
+
+.reservations .box-container .box .price {
+  height: 160px;
+  width: 160px;
+  color: var(--white);
+  background: var(--main-color);
+  padding: 57px 0 0;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+}
+
+.reservations .box-container .box .price .currency {
+  font-size: 35px;
+  line-height: 35px;
+  font-weight: 300;
+}
+
+.reservations .box-container .box .price .amount {
+  font-size: 58px;
+  line-height: 45px;
+  font-weight: 700;
+}
+
+.reservations .box-container .box ul li {
+  text-align: left;
+  font-size: 16px;
+  padding-left: 45px;
+  margin: 20px auto;
+  color: var(--white);
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.reservations .box-container .box ul li i {
+  color: var(--main-color);
+  padding: 0 10px;
+}
+
+.cancel-button {
+  height: 40px;
+  width: 140px;
+  outline: none;
+  border-radius: 50px;
+  text-transform: capitalize;
+  background: none;
+  font-size: 17px;
+  font-weight: bold;
+  transition: 0.2s linear;
+  color: var(--main-color);
+  border: 2px solid var(--main-color);
+  cursor: pointer;
+}
+
+.cancel-button:disabled {
+  cursor: not-allowed;
+}
+
+.reservations span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* reservations end */
+
+/* footer */
+.footer {
+  background: var(--main-color);
+  text-align: center;
+}
+
+.footer .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+}
+
+.footer .box-container .box h3 {
+  font-size: 2.2rem;
+  text-transform: capitalize;
+  color: var(--primary-color);
+  padding: 1rem 0;
+}
+
+.footer .box-container .box p {
+  font-size: 1.5rem;
+  line-height: 2;
+  color: var(--black);
+  padding: 1rem 0;
+}
+
+.footer .box-container .box .share {
+  margin-top: 1rem;
+}
+
+.footer .box-container .box .share a {
+  height: 4.5rem;
+  width: 4.5rem;
+  line-height: 4.5rem;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  margin-right: 0.3rem;
+  text-align: center;
+  padding: 7px 10px;
+}
+
+.footer .box-container .box .share a:hover {
+  background-color: var(--black);
+}
+
+.footer .box-container .box .link {
+  font-size: 1.7rem;
+  line-height: 2;
+  color: var(--primary-color);
+  padding: 0.5rem 0;
+  display: block;
+  text-decoration: underline;
+}
+
+.footer .box-container .box .link:hover {
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.footer .box-container .box .email {
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  font-size: 1.6rem;
+  border: 0.1rem solid var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.footer .credit {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #444;
+  border-top: 0.1rem solid var(--primary-color);
+}
+
+.footer .credit span {
+  color: var(--primary-color);
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+  }
+
+  .header .navbar a {
+    font-size: 1.7rem;
+  }
+
+  section {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #menu-btn {
+    display: inline-block;
+  }
+
+  .header .navbar {
+    position: fixed;
+    top: 0;
+    right: -105%;
+    width: 30rem;
+    background: var(--white);
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 1200;
+  }
+  .header .navbar #close-navbar {
+    display: block;
+  }
+  .header .navbar.active {
+    right: 0;
+  }
+
+  .header .navbar a {
+    display: block;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 3rem;
+  }
+
+  .home .content h3 {
+    font-size: 5.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+
+  .home .content h3 {
+    font-size: 4.5rem;
+  }
 }
