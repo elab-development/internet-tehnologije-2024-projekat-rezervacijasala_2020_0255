@@ -1,6 +1,6 @@
 export const slots = [
   {
-    time: '08:00',
+    time: '09:00',
     available: true,
   },
   {
@@ -8,7 +8,7 @@ export const slots = [
     available: true,
   },
   {
-    time: '16:00',
+    time: '15:00',
     available: true,
   },
   {
@@ -16,7 +16,7 @@ export const slots = [
     available: true,
   },
   {
-    time: '20:00',
+    time: '21:00',
     available: true,
   },
 ];
