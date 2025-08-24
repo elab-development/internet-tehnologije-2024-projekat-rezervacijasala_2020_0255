@@ -6,6 +6,7 @@ import { setLogout } from '../state';
 
 const Navbar = () => {
   const isAuth = Boolean(useSelector((state) => state.token));
+  const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,20 +25,26 @@ const Navbar = () => {
   }, []);
 
   return (
-    <section className="header">
-      <Link to="/" className="logo">
-        Lokacije
+    <section className='header'>
+      <Link to='/' className='logo'>
+        Venues
       </Link>
 
-      <nav className="navbar">
-        <div id="close-navbar" className="fas fa-times"></div>
-        <Link to="/">Home</Link>
+      <nav className='navbar'>
+        <div id='close-navbar' className='fas fa-times'></div>
+        <Link to='/'>Home</Link>
 
-        {isAuth && <Link to="/reservations">Vaše rezervacije</Link>}
-        {isAuth && <Link to="/venues">Naše Lokacije</Link>}
+        {isAuth && (
+          <Link to='/reservations'>
+            {userData.role === 'user'
+              ? 'Your Reservations'
+              : 'Upcoming Reservations'}
+          </Link>
+        )}
+        {isAuth && <Link to='/venues'>Our Venues</Link>}
         {isAuth ? (
           <Link
-            to="/"
+            to='/'
             onClick={() => {
               dispatch(setLogout());
             }}
@@ -45,11 +52,11 @@ const Navbar = () => {
             Logout
           </Link>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to='/login'>Login</Link>
         )}
       </nav>
 
-      <div id="menu-btn" className="fas fa-bars"></div>
+      <div id='menu-btn' className='fas fa-bars'></div>
     </section>
   );
 };

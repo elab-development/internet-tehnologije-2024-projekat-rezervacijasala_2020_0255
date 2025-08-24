@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { format, differenceInBusinessDays } from "date-fns";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { format, differenceInBusinessDays } from 'date-fns';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const ReservationCard = ({ reservation, flag, setFlag }) => {
   const [venue, setVenue] = useState(null);
-  const [review, setReview] = useState("");
-  const cantCancel =
-    differenceInBusinessDays(reservation.date, new Date()) < 10;
-
   const user = useSelector((state) => state.user);
-
-  const isReservationInPast =
-    differenceInBusinessDays(reservation.date, new Date()) <= 0;
+  const isReservationDiscounted = Boolean(reservation?.discounted);
+  const cantCancel =
+    user.role === 'user' &&
+    differenceInBusinessDays(reservation.date, new Date()) < 10;
 
   useEffect(() => {
     const getVenue = async () => {
@@ -32,52 +29,37 @@ const ReservationCard = ({ reservation, flag, setFlag }) => {
     setFlag(!flag);
   };
 
-  const submitReview = async () => {
-    await axios.post(`http://localhost:8000/api/review/`, {
-      venue: venue._id,
-      user: user.email,
-      text: review,
-    });
-  };
-
   return (
-    <div className="box">
-      <h3 className="title">{venue?.name}</h3>
-      <div className="price">
-        <span className="currency">$</span>
-        <span className="amount">{venue?.price}</span>
+    <div className='box'>
+      <h3 className='title'>{venue?.name}</h3>
+      <div className='price'>
+        <span className='currency'>$</span>
+        <span className='amount'>
+          {isReservationDiscounted ? Math.ceil(venue?.price / 2) : venue?.price}.00</span>
       </div>
       <ul>
         <li>
-          <i className="fas fa-calendar"></i>
-          {format(reservation?.date, "dd.MM.yyyy")} {reservation?.slot}
+          <i className='fas fa-calendar'></i>
+          {format(reservation?.date, 'dd.MM.yyyy')} {reservation?.slot}
         </li>
+        {user.role === 'admin' && (
+          <li>
+            <i className='fas fa-user'></i>
+            <span className='span-none'>
+              {reservation?.user.firstName} {reservation?.user.lastName}
+            </span>
+          </li>
+        )}
       </ul>
 
-      {!isReservationInPast && (
-        <button
-          type="button"
-          className="cancel-button"
-          disabled={cantCancel}
-          onClick={handleCancel}
-        >
-          Otkaži
-        </button>
-      )}
-
-      {isReservationInPast && (
-        <div className="review review__input">
-          <textarea
-            value={review}
-            rows={3}
-            className="review__textbox"
-            onChange={(e) => setReview(e.target.value)}
-          />
-          <button onClick={submitReview} className="review__button">
-            Submit Review
-          </button>
-        </div>
-      )}
+      <button
+        type='button'
+        className='cancel-button'
+        disabled={cantCancel}
+        onClick={handleCancel}
+      >
+        Cancel
+      </button>
     </div>
   );
 };

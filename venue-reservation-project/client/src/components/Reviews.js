@@ -1,70 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import Quote from '../assets/quote-img.png';
-import Review1 from '../assets/review-1.jpg';
-import Review2 from '../assets/review-2.jpg';
-import Review3 from '../assets/review-3.jpg';
+import UserImage from '../assets/review.png';
+import LeaveReview from './LeaveReview';
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const userLoggedIn = Boolean(useSelector((state) => state.user));
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await axios.get('http://localhost:8000/api/reviews');
+        setReviews(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchReviews();
+  }, [flag]);
+
   return (
     <section className='review' id='review'>
-      <h1 className='heading'>Recenzije mušterija</h1>
+      <h1 className='heading'>Customer's Review</h1>
 
       <div className='box-container'>
-        <div className='box'>
-          <img src={Quote} alt='quote' className='quote' />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi nulla
-            sit libero nemo fuga sequi nobis? Necessitatibus aut laborum, nisi
-            quas eaque laudantium consequuntur iste ex aliquam minus vel? Nemo.
-          </p>
-          <img src={Review1} className='user' alt='reviewer1' />
-          <h3>Marko Stamenković</h3>
-          <div className='stars'>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star-half-alt'></i>
+        {reviews?.map((review) => (
+          <div className='box' key={review._id}>
+            <img src={Quote} alt='quote' className='quote' />
+            <p>{review?.review}</p>
+            <img src={UserImage} alt='reviewer1' />
+            <h3>
+              {review?.user?.firstName} {review?.user?.lastName}
+            </h3>
+            <div className='stars'>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star-half-alt'></i>
+            </div>
           </div>
-        </div>
-
-        <div className='box'>
-          <img src={Quote} alt='quote' className='quote' />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi nulla
-            sit libero nemo fuga sequi nobis? Necessitatibus aut laborum, nisi
-            quas eaque laudantium consequuntur iste ex aliquam minus vel? Nemo.
-          </p>
-          <img src={Review2} className='user' alt='reviewer2' />
-          <h3>Julija Djordjević</h3>
-          <div className='stars'>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-          </div>
-        </div>
-
-        <div className='box'>
-          <img src={Quote} alt='quote' className='quote' />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi nulla
-            sit libero nemo fuga sequi nobis? Necessitatibus aut laborum, nisi
-            quas eaque laudantium consequuntur iste ex aliquam minus vel? Nemo.
-          </p>
-          <img src={Review3} className='user' alt='reviewer3' />
-          <h3>Milica Milisavljević</h3>
-          <div className='stars'>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className='fas fa-star'></i>
-            <i className="far fa-star"></i>
-          </div>
-        </div>
+        ))}
       </div>
+
+      {userLoggedIn && (
+        <>
+          <h2 className='heading'>Leave your opinion</h2>
+          <LeaveReview flag={flag} setFlag={setFlag} />
+        </>
+      )}
     </section>
   );
 };
