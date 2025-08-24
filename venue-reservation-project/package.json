@@ -1,0 +1,15 @@
+{
+    "name": "project-name",
+    "version": "1.0.0",
+    "scripts": {
+      "start-client": "npm run start --prefix client",
+      "start-server": "npm run start --prefix server",
+      "start": "start npm run start-server && start npm run start-client",
+      "build": "npm run build --prefix client",
+      "test": "npm run test --prefix client",
+      "eject": "npm run eject --prefix client"
+    },
+    "dependencies": {
+      "mongodb": "^6.12.0"
+    }
+}
