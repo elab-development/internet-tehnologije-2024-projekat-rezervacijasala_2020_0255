@@ -8,6 +8,7 @@ router.route('/').post(reservationController.createReservation);
 
 // GET Endpoints
 router.route('/').get(reservationController.getReservations);
+router.route('/upcoming').get(reservationController.getUpcomingReservations);
 router.route('/:id').get(reservationController.getReservation);
 
 // PUT Endpoints

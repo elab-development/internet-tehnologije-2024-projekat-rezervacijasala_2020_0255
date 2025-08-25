@@ -23,7 +23,7 @@ app.get('/api', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/venues', venueRouter);
 app.use('/api/reservations', reservationRouter);
-app.use('/api/review', reviewRouter);
+app.use('/api/reviews', reviewRouter);
 
 connect()
   .then(() => {

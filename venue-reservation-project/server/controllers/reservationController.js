@@ -1,16 +1,20 @@
 import Reservation from '../models/Reservation.model.js';
 import { Types } from 'mongoose';
+import User from '../models/User.model.js';
 
 // POST /api/reservations
 export const createReservation = async (req, res) => {
   try {
     const { user, venue, date, slot } = req.body;
 
+    const fullUser = await User.findById(user);
+
     const newReservation = new Reservation({
       date: date,
       slot: slot,
       user: user,
       venue: venue,
+      discounted: fullUser?.role === 'premium' ? true : false,
     });
 
     newReservation
@@ -44,6 +48,8 @@ export const getReservations = async (req, res) => {
         venue: Types.ObjectId(venue),
         user: Types.ObjectId(user),
       })
+        .sort([['date', 1]])
+        .sort([['slot', 1]])
         .populate('user')
         .populate('venue')
         .exec();
@@ -53,6 +59,8 @@ export const getReservations = async (req, res) => {
       const reservations = await Reservation.find({
         venue: Types.ObjectId(venue),
       })
+        .sort([['date', 1]])
+        .sort([['slot', 1]])
         .populate('user')
         .populate('venue')
         .exec();
@@ -62,6 +70,8 @@ export const getReservations = async (req, res) => {
       const reservations = await Reservation.find({
         user: Types.ObjectId(user),
       })
+        .sort([['date', 1]])
+        .sort([['slot', 1]])
         .populate('user')
         .populate('venue')
         .exec();
@@ -78,6 +88,31 @@ export const getReservations = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       error: 'Something went wrong getReservations: ' + error,
+    });
+  }
+};
+
+// GET /api/reservations/upcoming
+export const getUpcomingReservations = async (req, res) => {
+  try {
+    const now = new Date();
+    const reservations = await Reservation.find({ date: { $gt: now } })
+      .sort([['date', 1]])
+      .sort([['slot', 1]])
+      .populate('user')
+      .populate('venue')
+      .exec();
+
+    if (!reservations) {
+      return res.status(404).send({
+        error: 'No reservation found',
+      });
+    }
+
+    return res.status(200).send(reservations);
+  } catch (error) {
+    return res.status(500).send({
+      error: 'Something went wrong getUpcomingReservations: ' + error,
     });
   }
 };

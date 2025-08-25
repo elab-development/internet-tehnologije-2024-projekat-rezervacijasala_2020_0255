@@ -17,6 +17,11 @@ const ReservationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Venue',
   },
+  discounted: {
+    type: Boolean,
+    default: false,
+    required: [false]
+  },
 });
 
 const Reservation = mongoose.model('Reservation', ReservationSchema);
